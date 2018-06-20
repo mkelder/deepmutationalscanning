@@ -76,12 +76,10 @@ if (sum(Rep1$nc) > 1){
     ylab("%") +
     theme(plot.title = element_text(hjust=0.5)) +
     geom_point(aes(color=NT)) + scale_color_brewer(palette="Spectral") +  
-    geom_hline(aes(yintercept=2), colour="#999999") + 
-    geom_vline(aes(xintercept=315.5), colour="#999999", linetype="dashed") + 
+    geom_hline(aes(yintercept=2), colour="#999999") + geom_vline(aes(xintercept=315.5), colour="#999999", linetype="dashed") + 
     geom_vline(aes(xintercept=327.5), colour="#999999", linetype="dashed") + 
     geom_vline(aes(xintercept=333.5), colour="#999999", linetype="dashed") + 
     geom_vline(aes(xintercept=345.5), colour="#999999", linetype="dashed")
   ggsave(outputfile)
   graphics.off()  
-  
 }
