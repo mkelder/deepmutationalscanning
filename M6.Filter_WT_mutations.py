@@ -2,27 +2,19 @@
 
 #quit if old python version
 import sys
-if sys.version_info[:2] < (3,0):
+if sys.version_info[:3] < (3,0):
 	print("This script is written for python 3.0 or above, please upgrade to a more recent version of python")
 	exit()
 
 #get command line arguments
 import sys
-if len(sys.argv)==2:
-	INPUT = sys.argv[1]
-else:
-	print("This python script filters HR reads with only a single nt change. Specify whether to use STOP or SILENT HR sequence in the second command line argument\n\nUsage:\npython Sort_SAM_HR.py <SAMFILE> <STOP/SILENT>\n")
-	exit()
-if INPUT in ("-h", "--help"):
-	print("This python script filters HR reads with only a single nt change. Specify whether to use STOP or SILENT HR sequence in the second command line argument\n\nUsage:\npython Sort_SAM_HR.py <SAMFILE> <STOP/SILENT>\n")
+INPUT = sys.argv[1]
 
 #####
 #set these variables to assign the core sequence and location to be used to search for HR/NOHR events
-#sequences used are GFPStop-TTATAA; GFPSilent-CGCGCG; GFPWT-CGCGCC
-coreStart=83 #59+24
-coreEnd=88 #64+24
-#HRmutations=("C40T","G41T","C42A","G43T","C44A","C45A")
-refNTs=list("CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCcgcgccGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC")
+coreStart=83 #GFP default: 83
+coreEnd=88 #GFP default: 88
+refNTs=list(sys.argv[3])
 #####
 
 #import re module for regular expressions and compile regex's
@@ -63,7 +55,6 @@ with open(FILENAME1,"w") as MUT_OUT:
 					if len(MutCounter)==0:
 						NOMUTC += 1
 						WT_OUT.write(line)
-						#print(MutCollector)				
 					else:
 						MUTC +=1
 						MUT_OUT.write(line)

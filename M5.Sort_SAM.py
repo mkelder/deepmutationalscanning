@@ -8,7 +8,7 @@ if sys.version_info[:2] < (3,0):
 
 #get command line arguments
 import sys
-if len(sys.argv)==3:
+if len(sys.argv)==4:
     INPUT = sys.argv[1]
     INPUT2 = sys.argv[2]
 else:
@@ -32,10 +32,9 @@ if "STOP" in INPUT2:
 elif "SILENT" in INPUT2:
     HRcore="CGCGCG"
 NOHRcore="CGCGCC"
-coreStart=83 #59+24
-coreEnd=88 #64+24
-#HRmutations=("C40T","G41T","C42A","G43T","C44A","C45A")
-#WTsequence="CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCcgcgccGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC"
+coreStart=83 #GFP default: 83
+coreEnd=88 #GFP default: 88
+WTsequence=sys.argv[3]
 #####
 
 #import re module for regular expressions and compile regex's

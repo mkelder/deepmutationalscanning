@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+#adjust parameters ReadLen, AmpLen and Stringent at the start of the script prior to executing. Defaults for GFP at respectively 150, 157 and "Yes".
 
 #quit if old python version
 import sys
@@ -9,8 +10,10 @@ if len(sys.argv)==2:
 	INPUT = sys.argv[1]
 
 #Set variables
-ReadLen=150
-AmpLen=157
+ReadLen=150 #GFP default: 150
+AmpLen=157 #GFP default: 157
+Stringent="Yes" #Yes to excluded insertions and deletions, No to include. default is Yes.
+
 #import modules
 from itertools import groupby
 
@@ -47,8 +50,9 @@ with open(FILENAME2,"w") as OUTFILE2: #open output FILE.
 					readNTs=list(SAMfields[9])
 					readPBqual=list(SAMfields[10])
 					refend=(len(readNTs)-refstart+1) #Determine length and compensate for 1-based counting
-					if ("I" or "D" or "S") in CIGAR: #get rid of reads that are have indels
-						continue
+					if (Stringent=="Yes"): #check if stringency is set
+						if ("I" or "D" or "S") in CIGAR: #get rid of reads that are have indels
+							continue
 					#Proportions of mapped reads:
 					ReadCount+=1
 					if FLAG=="73" or FLAG=="137": 
@@ -219,7 +223,10 @@ with open(FILENAME2,"w") as OUTFILE2: #open output FILE.
 						if ('A' or 'G' or 'C' or 'T') in SeqFinal: #check read is not empty.
 							WrittenReads+=1
 							if 'N' in SeqFinal[33:]:									
-								OUTFILE2.write(OP)
+								if (Stringent=="Yes"): #check if stringency is set
+									OUTFILE2.write(OP)
+								else:
+									OUTFILE.write(OP)
 							else:					
 								WrittenN+=1
 								OUTFILE.write(OP) #write to OUTFILE.

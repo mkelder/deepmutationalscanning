@@ -7,9 +7,10 @@ if sys.version_info[:2] < (3,0):
 	exit()
 
 #get command line arguments
-if len(sys.argv)==3:
+if len(sys.argv)==4:
 	INPUT = sys.argv[1]
 	INPUT2 = sys.argv[2]
+	WT_NTseq=sys.argv[3]
 else:
 	print("This python script counts nucleotide mutation frequencies, nucleotide mutations and amino acid mutations for all alignments in a SAM file relative to either the STOP or SILENT GFP sequences \n\nUsage:\npython mutation_SAM.py <SAMFILE> <STOP/SILENT>\n")
 	exit()
@@ -25,17 +26,14 @@ else:
 
 #####
 #set these variables to assign the core sequence and location to be used to search for HR/NOHR events
-#sequences used are GFPStop-TTATAA; GFPSilent-CGCGCG; GFPWT-CGCGCC, trigger to use Stop or Silent sequences conferred from command line argument
-WT_NTseq="CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCcgcgccGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC"
-#STOP_NTseq="CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCttataaGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC"
 #ReadingFrame is nucleotide frame (1,2,3) to translate WT_NTseq into amino acids
-ReadingFrame=2
+ReadingFrame=2 #GFP default is 2
 #outputstart is the nucleotide in WT_NTseq from which the output should start reporting (inclusive), set at 0 to inactivate and output from the start of WT_NTseq
-outputstart=36
+outputstart=36 #GFP default is 36
 #outputstop is the nucleotide in WT_NTseq at which the output should stop reporting (inclusive), set at 0 to inactivate and output to the end of WT_NTseq
-outputstop=133
+outputstop=133 #GFP default is 133
 #seqstart is the start nucleotide of the WT_NTseq sequence relative to a larger reference sequence (e.g. GFP ORF) for reporting nucleotide and amino acid mutations
-seqstart=246
+seqstart=246 #GFP default is 246
 ####
 
 #define function to translate dna to protein

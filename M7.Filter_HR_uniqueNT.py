@@ -12,11 +12,9 @@ INPUT = sys.argv[1]
 
 #####
 #set these variables to assign the core sequence and location to be used to search for HR/NOHR events
-#sequences used are GFPStop-TTATAA; GFPSilent-CGCGCG; GFPWT-CGCGCC
-coreStart=83 #59+24
-coreEnd=88 #64+24
-#HRmutations=("C40T","G41T","C42A","G43T","C44A","C45A")
-refNTs=list("CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCcgcgccGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC")
+coreStart=83 #GFP default: 83
+coreEnd=88 #GFP default: 88
+refNTs=sys.argv[2]
 #####
 
 #import re module for regular expressions and compile regex's
@@ -56,7 +54,6 @@ with open(FILENAME1,"w") as UNIQUE_OUT:
 					MutTargetCounter=UniqueMuts=0
 					if (len(MutCounter)==0 or all (i == 'N' for i in MutCollector)):
 						NOMUT += 1
-						#print(MutCollector)
 					elif len(MutCounter)==1: #
 						for i in MutCounter:
 							if 69 <= i <= 100:

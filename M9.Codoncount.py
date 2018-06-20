@@ -7,35 +7,28 @@ if sys.version_info[:2] < (3,0):
 	exit()
 
 #get command line arguments
-if len(sys.argv)==2:
+if len(sys.argv)==3:
 	INPUT = sys.argv[1]
 else:
-	print("This python script counts nucleotide mutation frequencies, nucleotide mutations and amino acid mutations for all alignments in a SAM file relative to either the STOP or SILENT GFP sequences \n\nUsage:\npython mutation_SAM.py <SAMFILE> <STOP/SILENT>\n")
+	print("This python script counts all possible codons at each triplet position and outputs a tabular summary across all the reads.\n")
 	exit()
 if INPUT in ("-h", "--help"):
-	print("This python script counts nucleotide mutation frequencies, nucleotide mutations and amino acid mutations for all alignments in a SAM file relative to either the STOP or SILENT GFP sequences \n\nUsage:\npython mutation_SAM.py <SAMFILE> <STOP/SILENT>\n")
-#if "STOP" in INPUT2:
-	#HR="Stop"
-#elif "SILENT" in INPUT2:
-	#HR="Silent"
-#else:
-	#print("This python script counts nucleotide mutation frequencies, nucleotide mutations and amino acid mutations for all alignments in a SAM file relative to either the STOP or SILENT GFP sequences \n\nUsage:\npython mutation_SAM.py <SAMFILE> <STOP/SILENT>\n")
-	#exit()
+	print("This python script counts all possible codons at each triplet position and outputs a tabular summary across all the reads.\n")
 
 #####
 #set these variables to assign the core sequence and location to be used to search for HR/NOHR events
 #sequences used are GFPStop-TTATAA; GFPSilent-CGCGCG; GFPWT-CGCGCC, trigger to use Stop or Silent sequences conferred from command line argument
-WT_NTseq="CGACTTCTTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAGCGCACCATCTTCTTCAAGGACGACGGCAACTACAAGACCcgcgccGAGGTGAAGTTCGAGGGCGACACCCTGGTGAACCGCATCGAGCTGAAGGGCATCGACTTCAAGGAGGAC"
+WT_NTseq=sys.argv[2]
 #ReadingFrame is nucleotide frame (1,2,3) to translate WT_NTseq into amino acids
-ReadingFrame=2
+ReadingFrame=2 #GFP default is 2
 #outputstart is the nucleotide in WT_NTseq from which the output should start reporting (inclusive), set at 0 to inactivate and output from the start of WT_NTseq
-outputstart=0
+outputstart=36 #GFP default is 36
 #outputstop is the nucleotide in WT_NTseq at which the output should stop reporting (inclusive), set at 0 to inactivate and output to the end of WT_NTseq
-outputstop=0
+outputstop=133 #GFP default is 133
 #seqstart is the start nucleotide of the WT_NTseq sequence relative to a larger reference sequence (e.g. GFP ORF) for reporting nucleotide and amino acid mutations
-seqstart=54
-#ntstart is the codon at which it should start (for beta-catenin 13)
-ntstart=13
+seqstart=246 #GFP default is 246
+#ntstart is the codon at which it should start
+ntstart=13 #GFP default is 13
 ####
 #codons_twist ={'ATG':'M','AAC':'N','ATC':'I','CTG':'L','GCT':'A','TTC':'F','CAG':'Q','GGT':'G','GAT':'D','AAG':'K','ACC':'T','TGG':'W','AGA':'R','AGC':'S','TGC':'C','GTG':'V','CCT':'P','CAC':'H','GAG':'E','TAC':'Y'}
 
